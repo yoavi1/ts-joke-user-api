@@ -1,8 +1,14 @@
 import BasicCard from '../components/BasicCard';
+import { joke } from '../App';
 // import { useState, useEffect } from 'react';
 // import axios from 'axios';
-
-function HomePage({ jokes, joke, fetchJoke }) {
+// type joke = {};
+type jokesList = {
+  joke: joke;
+  jokes: joke[];
+  fetchJoke: () => void;
+};
+function HomePage({ jokes, joke, fetchJoke }: jokesList) {
   //   console.log(joke, '2');
   console.log(jokes);
 

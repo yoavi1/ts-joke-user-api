@@ -1,13 +1,22 @@
 import axios from 'axios';
 import { useState } from 'react';
-export const UserPage = ({ getAllUsers, users }) => {
-  const [userjokes, setuserjokes] = useState([]);
+import { user } from '../App';
+import { joke } from '../App';
+
+type UserPageProps = {
+  getAllUsers: () => void;
+  users: user[];
+};
+
+export const UserPage = ({ getAllUsers, users }: UserPageProps) => {
+  const [userjokes, setuserjokes] = useState<joke[]>([]);
   const [showuserjokes, setshowuserjokes] = useState(false);
   const [Userclickid, setUserclickid] = useState('');
-  async function fetchJokeById(userId) {
+  async function fetchJokeById(userId: string) {
     const res = await axios.get(`http://localhost:3000/api/v1/users/${userId}`);
     console.log(res.data.jokes);
-    setuserjokes(res.data.jokes);
+    const { jokes } = res.data;
+    setuserjokes(jokes);
     setshowuserjokes(!showuserjokes);
     setUserclickid(userId);
   }
@@ -29,7 +38,7 @@ export const UserPage = ({ getAllUsers, users }) => {
           alignItems: 'center',
         }}
       >
-        {users.map((user) => {
+        {users.map((user: user) => {
           return (
             <div
               className="rounded-md bg bg-violet-400 font-semibold "
